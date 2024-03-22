@@ -3,6 +3,7 @@ package http
 import (
 	"encoding/json"
 	"errors"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 
@@ -23,6 +24,17 @@ func NewServer(patientRepo patient.PatientRepository, p ...Pinger) *Server {
 		router:      chi.NewRouter(),
 		patientRepo: patientRepo,
 	}
+
+	corsMiddleware := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"}, // 允许所有来源，根据您的需求调整
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300, // Maximum value not ignored by any of major browsers
+	})
+
+	s.router.Use(corsMiddleware.Handler)
 	s.routes(p...)
 	return &s
 }
