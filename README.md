@@ -19,8 +19,8 @@ Start the PostgreSQL server using Docker Compose:
 
 ### Starting the Web Services
 
-To start the web services, navigate to the `cmd/patient` directory and run the Go program:
+To start the web services, navigate to the `backend/cmd/patient` directory and run the Go program:
 
 ```shell
-cd cmd/patient
+cd backend/cmd/patient
 go run main.go
