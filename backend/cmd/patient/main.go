@@ -25,7 +25,7 @@ func main() {
 	port := flag.Int("port", 8080, "listen port")
 	flag.Parse()
 	if err := run(*port); err != nil {
-		fmt.Println("error to run service")
+		log.Fatal(err)
 	}
 }
 
